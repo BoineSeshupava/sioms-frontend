@@ -1,10 +1,13 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
 import { AdminHomeComponent } from './admin-home/admin-home.component';
 import { CustomerHomeComponent } from './customer-home/customer-home.component';
 import { AuthGuard } from '../../core/guards/auth.guard'; // Import the guard
+import { ProductsComponent } from './products/products.component';
+import { CustomersComponent } from './customers/customers.component';
+import { CategoriesComponent } from './categories/categories.component';
+import { OrdersComponent } from './orders/orders.component';
+import { Routes } from '@angular/router';
 
-const routes: Routes = [
+export const DashboardRoutes: Routes = [
   {
     path: 'admin-home',
     component: AdminHomeComponent,
@@ -14,11 +17,9 @@ const routes: Routes = [
     path: 'customer-home',
     component: CustomerHomeComponent,
     canActivate: [AuthGuard]
-  }
+  },
+  { path: 'products', component: ProductsComponent},
+  { path: 'categories', component: CategoriesComponent},
+  { path: 'orders', component: OrdersComponent, canActivate: [AuthGuard] },
+  { path: 'customers', component: CustomersComponent, canActivate: [AuthGuard] }
 ];
-
-@NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
-})
-export class DashboardRoutingModule {}
