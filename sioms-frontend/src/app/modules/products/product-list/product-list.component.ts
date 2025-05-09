@@ -50,10 +50,4 @@ export class ProductListComponent implements OnInit {
     this.cartService.addToCart(cartItem);
     alert(`${product.name} added to cart!`);
   }
-  testApi() {
-    this.productService.getAllProducts().subscribe({
-      next: data => console.log('API Success:', data),
-      error: err => console.error('API Error:', err)
-    });
-  }
 }

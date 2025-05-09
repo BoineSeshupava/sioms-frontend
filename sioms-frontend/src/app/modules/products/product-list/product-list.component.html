@@ -1,17 +1,23 @@
 <div class="container mt-4">
-    <div class="row row-cols-1 row-cols-md-3 g-4">
-      <button class="btn btn-primary" (click)="testApi()">Test API</button>
-      <div class="col" *ngFor="let product of products">
-        <div class="card h-100">
-          <img [src]="product.imageUrl" class="card-img-top" alt="{{ product.name }}" style="height: 200px; object-fit: cover;">
-          <div class="card-body">
-            <h5 class="card-title">{{ product.name }}</h5>
-            <p class="card-text">{{ product.description }}</p>
-            <p class="text-primary fw-bold">₹{{ product.price }}</p>
-            <button class="btn btn-outline-primary w-100" (click)="addToCart(product)">Add to Cart</button>
-          </div>
+  <h2 class="mb-4 text-center">All Products</h2>
+  <div class="row">
+    <div class="col-md-4 mb-4" *ngFor="let product of products">
+      <div class="card h-100">
+        <img
+          [src]="product.imageUrl"
+          class="card-img-top"
+          alt="{{ product.name }}"
+          style="height: 250px; object-fit: cover;"
+        />
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title">{{ product.name }}</h5>
+          <p class="card-text text-truncate">{{ product.description }}</p>
+          <p class="fw-bold mb-2">₹{{ product.price }}</p>
+          <button class="btn btn-primary mt-auto" (click)="addToCart(product)">
+            Add to Cart
+          </button>
         </div>
       </div>
     </div>
   </div>
-  
+</div>

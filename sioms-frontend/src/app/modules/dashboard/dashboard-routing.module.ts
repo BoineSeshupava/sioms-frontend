@@ -7,7 +7,7 @@ import { CategoriesComponent } from './categories/categories.component';
 import { OrdersComponent } from './orders/orders.component';
 import { Routes } from '@angular/router';
 
-export const DashboardRoutes: Routes = [
+export default [
   {
     path: 'admin-home',
     component: AdminHomeComponent,
@@ -22,4 +22,4 @@ export const DashboardRoutes: Routes = [
   { path: 'categories', component: CategoriesComponent},
   { path: 'orders', component: OrdersComponent, canActivate: [AuthGuard] },
   { path: 'customers', component: CustomersComponent, canActivate: [AuthGuard] }
-];
+] as Routes;

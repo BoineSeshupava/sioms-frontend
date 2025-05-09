@@ -10,12 +10,12 @@ export const routes: Routes = [
   {
     path: 'auth',
     loadChildren: () =>
-      import('./auth/auth-routing.module').then((m) => m.AUTH_ROUTES),
+      import('./auth/auth-routing.module').then((m) => m.default),
   },
   {
     path: 'dashboard',
     loadChildren: () =>
-      import('./modules/dashboard/dashboard-routing.module').then(m => m.DashboardRoutes)
+      import('./modules/dashboard/dashboard-routing.module').then(m => m.default)
   },
   {
     path: '**',
