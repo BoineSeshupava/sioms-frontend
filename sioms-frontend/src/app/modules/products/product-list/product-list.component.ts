@@ -43,11 +43,20 @@ export class ProductListComponent implements OnInit {
     }
   
     const cartItem = {
-      product: product,
+      productId: product.productId,
+      productName: product.productName,
+      price: product.price,
       quantity: 1
     };
   
-    this.cartService.addToCart(cartItem);
-    alert(`${product.name} added to cart!`);
+    this.cartService.addToCart(cartItem).subscribe({
+      next: () => {
+        alert('Item added to cart!');
+      },
+      error: (err) => {
+        console.error('Failed to add to cart', err);
+        alert('Error adding to cart');
+      }
+    });
   }
 }

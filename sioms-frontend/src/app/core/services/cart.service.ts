@@ -1,34 +1,38 @@
 import { Injectable } from '@angular/core';
 import { CartItem } from '../models/cart-item.model';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
-  private cartKey = 'cartItems';
+  private readonly API_URL = 'https://localhost:5001/api/Cart'; // Adjust if needed
 
-  getCartItems(): CartItem[] {
-    const items = localStorage.getItem(this.cartKey);
-    return items ? JSON.parse(items) : [];
+  constructor(private http: HttpClient) {}
+
+  getCartItems(): Observable<CartItem[]> {
+    return this.http.get<CartItem[]>(`${this.API_URL}`);
   }
 
-  addToCart(item: CartItem): void {
-    const items = this.getCartItems();
-    const existing = items.find(i => i.product.id === item.product.id);
-    if (existing) {
-      existing.quantity += item.quantity;
-    } else {
-      items.push(item);
-    }
-    localStorage.setItem(this.cartKey, JSON.stringify(items));
+  addToCart(cartItem: { productId: string; productName: string; price:number ; quantity: number }) {
+    return this.http.post(`${this.API_URL}/add`, cartItem);
   }
 
-  removeItem(productId: string): void {
-    const items = this.getCartItems().filter(i => i.product.id !== productId);
-    localStorage.setItem(this.cartKey, JSON.stringify(items));
+  updateCartItem(item: CartItem): Observable<any> {
+    return this.http.put(`${this.API_URL}/update`, item);
   }
 
-  clearCart(): void {
-    localStorage.removeItem(this.cartKey);
+  removeItem(id: string): Observable<any> {
+    return this.http.delete(`${this.API_URL}/remove/${id}`);
   }
+
+  removeFromCartByProductId(productId: string): Observable<void> {
+    return this.http.delete<void>(`${this.API_URL}/by-product/${productId}`);
+  }
+
+  clearCart(): Observable<any> {
+    return this.http.delete(`${this.API_URL}/clear`);
+  }
+  
 }
