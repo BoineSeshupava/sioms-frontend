@@ -25,12 +25,19 @@ export class MyCartComponent implements OnInit {
       this.cartItems = items;
     });
   }
+  updateQuantity(item: CartItem, newQuantity: number) {
+    if (newQuantity < 1) return;
 
-  updateCartItem(item: CartItem) {
-    this.cartService.updateCartItem(item).subscribe(() => {
-      this.loadCart();
+    this.cartService.updateCartItem(item.cartItemId, newQuantity).subscribe({
+      next: () => {
+        item.quantity = newQuantity;
+      },
+      error: err => {
+        console.error('Failed to update cart item', err);
+      }
     });
   }
+
 
   removeItem(productId: string) {
     this.cartService.removeFromCartByProductId(productId).subscribe(() => {

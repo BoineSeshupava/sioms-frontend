@@ -14,7 +14,7 @@
       <tr *ngFor="let item of cartItems">
         <td>{{ item.product.productName }}</td>
         <td>
-          <input type="number" [(ngModel)]="item.quantity" (change)="updateCartItem(item)" class="form-control" min="1">
+          <input type="number" [ngModel]="item.quantity" (ngModelChange)="updateQuantity(item, $event)" min="1">
         </td>
         <td>{{ item.product.price | currency }}</td>
         <td>{{ item.product.price * item.quantity | currency }}</td>

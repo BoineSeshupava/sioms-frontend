@@ -19,8 +19,8 @@ export class CartService {
     return this.http.post(`${this.API_URL}/add`, cartItem);
   }
 
-  updateCartItem(item: CartItem): Observable<any> {
-    return this.http.put(`${this.API_URL}/update`, item);
+  updateCartItem(cartItemId: string, quantity: number): Observable<void> {
+    return this.http.put<void>(`${this.API_URL}/${cartItemId}`, quantity);
   }
 
   removeItem(id: string): Observable<any> {
