@@ -1,0 +1,15 @@
+<div class="container">
+  <h2>User Profile</h2>
+  <form (ngSubmit)="update()">
+    <label>Name:</label>
+    <input type="text" [(ngModel)]="profile.name" name="name" required />
+    
+    <label>Email:</label>
+    <input type="email" [(ngModel)]="profile.email" name="email" disabled />
+
+    <label>Role:</label>
+    <input type="text" [(ngModel)]="profile.role" name="role" disabled />
+
+    <button type="submit">Update</button>
+  </form>
+</div>
