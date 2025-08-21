@@ -30,7 +30,7 @@ export class ProductListComponent implements OnInit {
   }
 
   loadProducts(): void {
-    this.productService.getAllProducts().subscribe({
+    this.productService.getProducts().subscribe({
       next: data => this.products = data,
       error: err => console.error('Error loading products', err)
     });

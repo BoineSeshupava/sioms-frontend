@@ -1,1 +1,22 @@
-<p>customers works!</p>
+<div class="container mt-4">
+	<h2>Customers</h2>
+	<table class="table table-bordered" *ngIf="customers.length">
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Email</th>
+				<th>Phone</th>
+				<th>Address</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr *ngFor="let customer of customers">
+				<td>{{ customer.name }}</td>
+				<td>{{ customer.email }}</td>
+				<td>{{ customer.phoneNumber }}</td>
+				<td>{{ customer.address }}</td>
+			</tr>
+		</tbody>
+	</table>
+	<div *ngIf="!customers.length">No customers found.</div>
+</div>

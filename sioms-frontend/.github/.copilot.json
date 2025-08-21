@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "rules": [
+    {
+      "include": ["src/**/*.spec.ts"],
+      "purpose": "Generate Angular unit test code for components",
+      "instructions": [
+        "Use Jasmine & Karma (Angular default) for unit tests.",
+        "Always test component creation.",
+        "Test DOM rendering, inputs, outputs, and event handlers.",
+        "Use TestBed.configureTestingModule with correct declarations/imports.",
+        "Keep tests clean, avoid redundant boilerplate.",
+        "Ensure functional coverage for UI logic.",
+        "Write code directly inside the corresponding *.spec.ts file."
+      ]
+    },
+    {
+      "include": ["src/**/*.html", "src/**/*.scss"],
+      "purpose": "Generate visually stunning Angular component templates and styles",
+      "instructions": [
+        "Use Bootstrap 5 classes for layout and styling.",
+        "Enhance visuals with SCSS (hover, shadows, spacing, transitions).",
+        "Apply changes directly to component.html and component.scss files.",
+        "Avoid inline styles in TypeScript files."
+      ]
+    }
+  ]
+}

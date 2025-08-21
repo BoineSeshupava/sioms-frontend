@@ -3,18 +3,22 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { LoginRequest } from '../../core/models/login-request.model';
 import { LoginResponse } from '../../core/models/login-response.model';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
+  private apiUrl = `${environment.apiBaseUrl}/Auth`;
 
-  private apiUrl = 'https://localhost:5001/api/Auth'; // Replace with your backend API URL
+  constructor(private http: HttpClient) {}
 
-  constructor(private http: HttpClient) { }
 
   login(loginRequest: LoginRequest): Observable<LoginResponse> {
-    let response  = this.http.post<LoginResponse>(`${this.apiUrl}/login`, loginRequest);
+    let response = this.http.post<LoginResponse>(
+      `${this.apiUrl}/login`,
+      loginRequest
+    );
     return response;
   }
 
@@ -34,7 +38,9 @@ export class AuthService {
   getToken(): string | null {
     return localStorage.getItem('token');
   }
-
+  getUserName(): string | null {
+    return localStorage.getItem('userName');
+  } 
   setUserRole(role: string) {
     localStorage.setItem('userRole', role);
   }

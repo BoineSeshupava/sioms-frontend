@@ -1,1 +1,32 @@
-<p>add-product works!</p>
+<div class="container mt-4">
+	<h2>Add Product</h2>
+	<form (ngSubmit)="addProduct()" #productForm="ngForm">
+		<div class="mb-3">
+			<label>Product Name</label>
+			<input class="form-control" [(ngModel)]="product.productName" name="productName" required>
+		</div>
+		<div class="mb-3">
+			<label>Description</label>
+			<textarea class="form-control" [(ngModel)]="product.description" name="description"></textarea>
+		</div>
+		<div class="mb-3">
+			<label>Price</label>
+			<input type="number" class="form-control" [(ngModel)]="product.price" name="price" required>
+		</div>
+		<div class="mb-3">
+			<label>Image URL</label>
+			<input class="form-control" [(ngModel)]="product.imageUrl" name="imageUrl">
+		</div>
+		<div class="mb-3">
+			<label>Category ID</label>
+			<input class="form-control" [(ngModel)]="product.categoryId" name="categoryId">
+		</div>
+		<div class="mb-3">
+			<label>Stock Quantity</label>
+			<input type="number" class="form-control" [(ngModel)]="product.stockQuantity" name="stockQuantity">
+		</div>
+		<button class="btn btn-primary" type="submit">Add Product</button>
+	</form>
+	<div *ngIf="successMsg" class="alert alert-success mt-2">{{ successMsg }}</div>
+	<div *ngIf="errorMsg" class="alert alert-danger mt-2">{{ errorMsg }}</div>
+</div>

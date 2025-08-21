@@ -1,1 +1,18 @@
-<p>categories works!</p>
+<div class="container mt-4">
+	<h2>Categories</h2>
+	<table class="table table-bordered" *ngIf="categories.length">
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Description</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr *ngFor="let category of categories">
+				<td>{{ category.name }}</td>
+				<td>{{ category.description }}</td>
+			</tr>
+		</tbody>
+	</table>
+	<div *ngIf="!categories.length">No categories found.</div>
+</div>

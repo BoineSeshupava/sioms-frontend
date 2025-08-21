@@ -1,1 +1,35 @@
-<p>customer-home works!</p>
+<div class="container py-5">
+  <h2 class="mb-4 text-primary fw-bold">Welcome, {{ userName }}!</h2>
+  <div class="row g-4">
+    <div class="col-md-4">
+      <div class="card h-100 shadow-sm border-0">
+        <div class="card-body text-center">
+          <i class="bi bi-bag-check display-4 text-success mb-3"></i>
+          <h5 class="card-title">Browse Products</h5>
+          <p class="card-text">Explore our latest products and deals.</p>
+          <button class="btn btn-outline-primary w-100" (click)="goToProducts()">Shop Now</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card h-100 shadow-sm border-0">
+        <div class="card-body text-center">
+          <i class="bi bi-cart4 display-4 text-info mb-3"></i>
+          <h5 class="card-title">View Cart</h5>
+          <p class="card-text">Review your cart and checkout securely.</p>
+          <button class="btn btn-outline-info w-100" (click)="goToCart()">Go to Cart</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card h-100 shadow-sm border-0">
+        <div class="card-body text-center">
+          <i class="bi bi-receipt display-4 text-warning mb-3"></i>
+          <h5 class="card-title">My Orders</h5>
+          <p class="card-text">Track your orders and view history.</p>
+          <button class="btn btn-outline-warning w-100" (click)="goToOrders()">View Orders</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

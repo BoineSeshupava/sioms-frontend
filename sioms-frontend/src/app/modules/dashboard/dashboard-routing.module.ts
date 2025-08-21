@@ -12,16 +12,19 @@ export default [
   {
     path: 'admin-home',
     component: AdminHomeComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
+    data: { roles: ['admin'] }
   },
   {
     path: 'customer-home',
     component: CustomerHomeComponent,
     canActivate: [AuthGuard]
+    , data: { roles: ['customer'] }
   },
+  
   { path: 'products', component: ProductListComponent},
-  { path: 'categories', component: CategoriesComponent},
-  { path: 'orders', component: OrdersComponent, canActivate: [AuthGuard] },
-  { path: 'customers', component: CustomersComponent, canActivate: [AuthGuard] },
-  { path: 'cart', component: MyCartComponent, canActivate: [AuthGuard]},
+  { path: 'categories', component: CategoriesComponent },
+  { path: 'orders', component: OrdersComponent, canActivate: [AuthGuard] , data: { roles: ['admin'] } },
+  { path: 'customers', component: CustomersComponent, canActivate: [AuthGuard], data: { roles: ['admin'] } },
+  { path: 'cart', component: MyCartComponent, canActivate: [AuthGuard], data: { roles: ['Customer'] } },
 ] as Routes;

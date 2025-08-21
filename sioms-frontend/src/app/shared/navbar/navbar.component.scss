@@ -1,0 +1,20 @@
+.bg-gradient-primary {
+  background: linear-gradient(90deg, #007bff 0%, #6610f2 100%);
+}
+.navbar-nav .nav-link {
+  transition: background 0.2s, color 0.2s;
+  border-radius: 0.25rem;
+  margin-right: 0.5rem;
+}
+.navbar-nav .nav-link.active,
+.navbar-nav .nav-link:hover {
+  background: rgba(255,255,255,0.15);
+  color: #fff;
+}
+.navbar-text {
+  font-size: 1rem;
+}
+.badge {
+  font-size: 0.8rem;
+  vertical-align: top;
+}

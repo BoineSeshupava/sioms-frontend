@@ -2,37 +2,25 @@ import { Injectable } from '@angular/core';
 import { CartItem } from '../models/cart-item.model';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
-  private readonly API_URL = 'https://localhost:5001/api/Cart'; // Adjust if needed
+  private apiUrl = `${environment.apiBaseUrl}/cart`;
 
   constructor(private http: HttpClient) {}
 
   getCartItems(): Observable<CartItem[]> {
-    return this.http.get<CartItem[]>(`${this.API_URL}`);
+    return this.http.get<CartItem[]>(this.apiUrl);
   }
 
-  addToCart(cartItem: { productId: string; productName: string; price:number ; quantity: number }) {
-    return this.http.post(`${this.API_URL}/add`, cartItem);
+  addToCart(item: { productId: string; quantity: number }): Observable<any> {
+    return this.http.post(`${this.apiUrl}/add`, item);
   }
 
-  updateCartItem(cartItemId: string, quantity: number): Observable<void> {
-    return this.http.put<void>(`${this.API_URL}/${cartItemId}`, quantity);
+  removeFromCart(itemId: string): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/${itemId}`);
   }
-
-  removeItem(id: string): Observable<any> {
-    return this.http.delete(`${this.API_URL}/remove/${id}`);
-  }
-
-  removeFromCartByProductId(productId: string): Observable<void> {
-    return this.http.delete<void>(`${this.API_URL}/by-product/${productId}`);
-  }
-
-  clearCart(): Observable<any> {
-    return this.http.delete(`${this.API_URL}/clear`);
-  }
-  
 }

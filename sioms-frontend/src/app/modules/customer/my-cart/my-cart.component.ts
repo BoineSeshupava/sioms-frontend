@@ -3,6 +3,8 @@ import { CartService } from '../../../core/services/cart.service';
 import { CartItem } from '../../../core/models/cart-item.model';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { OrderService } from '../../../core/services/order.service';
+import { Order, OrderItem } from '../../../core/models/order.model';
 
 @Component({
   selector: 'app-my-cart',
@@ -13,8 +15,11 @@ import { FormsModule } from '@angular/forms';
 })
 export class MyCartComponent implements OnInit {
   cartItems: CartItem[] = [];
+  placingOrder = false;
+  orderSuccess = '';
+  orderError = '';
 
-  constructor(private cartService: CartService) {}
+  constructor(private cartService: CartService, private orderService: OrderService) {}
 
   ngOnInit(): void {
     this.loadCart();
@@ -25,33 +30,44 @@ export class MyCartComponent implements OnInit {
       this.cartItems = items;
     });
   }
-  updateQuantity(item: CartItem, newQuantity: number) {
-    if (newQuantity < 1) return;
 
-    this.cartService.updateCartItem(item.cartItemId, newQuantity).subscribe({
-      next: () => {
-        item.quantity = newQuantity;
-      },
-      error: err => {
-        console.error('Failed to update cart item', err);
-      }
-    });
-  }
-
-
-  removeItem(productId: string) {
-    this.cartService.removeFromCartByProductId(productId).subscribe(() => {
-      this.loadCart();
-    });
-  }
-
-  clearCart() {
-    this.cartService.clearCart().subscribe(() => {
+  removeItem(item: CartItem) {
+    this.cartService.removeFromCart(item.cartItemId).subscribe(() => {
       this.loadCart();
     });
   }
 
   getTotal(): number {
     return this.cartItems.reduce((sum, item) => sum + (item.product.price * item.quantity), 0);
+  }
+
+  placeOrder() {
+    if (!this.cartItems.length) return;
+    this.placingOrder = true;
+    this.orderSuccess = '';
+    this.orderError = '';
+
+    const orderPayload: Omit<Order, 'orderId' | 'customerId' | 'totalAmount'> = {
+      orderDate: new Date().toISOString(),
+      status: 'Pending',
+      orderItems: this.cartItems.map(item => ({
+        productId: item.product.productId,
+        quantity: item.quantity
+      }))
+    };
+
+    this.orderService.placeOrder(orderPayload).subscribe({
+      next: () => {
+        this.orderSuccess = 'Order placed successfully!';
+        this.cartItems = [];
+      },
+      error: () => {
+        this.orderError = 'Failed to place order.';
+      },
+      complete: () => {
+        this.placingOrder = false;
+        this.loadCart();
+      }
+    });
   }
 }

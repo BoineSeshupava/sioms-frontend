@@ -1,9 +1,21 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CustomerService {
+  private apiUrl = `${environment.apiBaseUrl}/customers`;
 
-  constructor() { }
+  constructor(private http: HttpClient) {}
+
+  getCustomerProfile(id: string): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/${id}`);
+  }
+
+  getCustomerOrders(id: string): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/${id}/orders`);
+  }
 }

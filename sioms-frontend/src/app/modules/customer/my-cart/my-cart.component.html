@@ -1,38 +1,37 @@
-<div class="container mt-4" *ngIf="cartItems.length > 0; else emptyCart">
-  <h3>Your Cart</h3>
-  <table class="table table-bordered">
-    <thead>
-      <tr>
-        <th>Product</th>
-        <th>Qty</th>
-        <th>Price</th>
-        <th>Total</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let item of cartItems">
-        <td>{{ item.product.productName }}</td>
-        <td>
-          <input type="number" [ngModel]="item.quantity" (ngModelChange)="updateQuantity(item, $event)" min="1">
-        </td>
-        <td>{{ item.product.price | currency }}</td>
-        <td>{{ item.product.price * item.quantity | currency }}</td>
-        <td>
-          <button class="btn btn-danger btn-sm" (click)="removeItem(item.product.productId)">Remove</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-  <div class="text-end">
-    <h5>Total: {{ getTotal() | currency }}</h5>
-    <button class="btn btn-warning" (click)="clearCart()">Clear Cart</button>
+<div class="container py-4">
+  <h2 class="mb-4 text-info fw-bold">My Cart</h2>
+  <div class="table-responsive cart-table mb-3">
+    <table class="table align-middle">
+      <thead class="table-light">
+        <tr>
+          <th>Product</th>
+          <th>Qty</th>
+          <th>Price</th>
+          <th>Subtotal</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of cartItems">
+          <td>{{ item.product.productName }}</td>
+          <td>{{ item.quantity }}</td>
+          <td>{{ item.product.price | currency }}</td>
+          <td>{{ item.product.price * item.quantity | currency }}</td>
+          <td>
+            <button class="btn btn-sm btn-danger" (click)="removeItem(item)">
+              <i class="bi bi-trash"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
+  <div class="d-flex justify-content-between align-items-center">
+    <span class="cart-total">Total: {{ getTotal() | currency }}</span>
+    <button class="btn btn-success btn-checkout" (click)="placeOrder()" [disabled]="placingOrder || !cartItems.length">
+      Checkout
+    </button>
+  </div>
+  <div *ngIf="orderSuccess" class="alert alert-success mt-3">{{ orderSuccess }}</div>
+  <div *ngIf="orderError" class="alert alert-danger mt-3">{{ orderError }}</div>
 </div>
-
-<ng-template #emptyCart>
-  <div class="text-center mt-5">
-    <h4>Your cart is empty</h4>
-    <a routerLink="/dashboard/products" class="btn btn-primary mt-3">Continue Shopping</a>
-  </div>
-</ng-template>
