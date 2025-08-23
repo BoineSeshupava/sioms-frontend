@@ -1,5 +1,7 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { MyCartComponent } from './my-cart.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { Product } from '../../../core/models/product.model';
 
 describe('MyCartComponent', () => {
   let fixture: ComponentFixture<MyCartComponent>;
@@ -7,7 +9,7 @@ describe('MyCartComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MyCartComponent]
+      imports: [MyCartComponent, HttpClientTestingModule]
     }).compileComponents();
     fixture = TestBed.createComponent(MyCartComponent);
     component = fixture.componentInstance;
@@ -18,9 +20,12 @@ describe('MyCartComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should render cart items', () => {
+  it('should display cart item product name', () => {
     component.cartItems = [
-      { product: { name: 'Test Product', price: 10 }, quantity: 2 } as any
+      {
+        product: { productId: 'p1', productName: 'Test Product', price: 10 } as Product, quantity: 2,
+        cartItemId: ''
+      }
     ];
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;

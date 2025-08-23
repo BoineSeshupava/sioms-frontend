@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AddProductComponent } from './add-product.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('AddProductComponent', () => {
   let fixture: ComponentFixture<AddProductComponent>;
@@ -8,7 +9,7 @@ describe('AddProductComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AddProductComponent, ReactiveFormsModule]
+      imports: [AddProductComponent, ReactiveFormsModule, HttpClientTestingModule]
     }).compileComponents();
     fixture = TestBed.createComponent(AddProductComponent);
     component = fixture.componentInstance;

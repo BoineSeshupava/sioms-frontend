@@ -1,16 +1,16 @@
 import { TestBed } from '@angular/core/testing';
-
 import { AdminService } from './admin.service';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('AdminService', () => {
-  let service: AdminService;
-
   beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(AdminService);
+    TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule]
+    });
   });
 
   it('should be created', () => {
+    const service = TestBed.inject(AdminService);
     expect(service).toBeTruthy();
   });
 });
