@@ -19,12 +19,4 @@ export class ReportService {
   getInventoryReport(): Observable<InventoryReport[]> {
     return this.http.get<InventoryReport[]>(`${this.apiUrl}/inventory`);
   }
-
-  exportSalesReport(format: 'excel' | 'pdf'): Observable<Blob> {
-    return this.http.get(`${this.apiUrl}/sales/export?format=${format}`, { responseType: 'blob' });
-  }
-
-  exportInventoryReport(format: 'excel' | 'pdf'): Observable<Blob> {
-    return this.http.get(`${this.apiUrl}/inventory/export?format=${format}`, { responseType: 'blob' });
-  }
 }

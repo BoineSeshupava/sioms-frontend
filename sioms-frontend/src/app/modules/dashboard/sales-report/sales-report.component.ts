@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ReportService } from '../../../core/services/report.service';
 import { SalesReport } from '../../../core/models/SalesReport.model';
 import { CommonModule, CurrencyPipe } from '@angular/common';
+import * as XLSX from 'xlsx';
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
 
 @Component({
   selector: 'app-sales-report',
@@ -39,19 +42,45 @@ export class SalesReportComponent implements OnInit {
 
   export(format: 'excel' | 'pdf') {
     this.exporting = true;
-    this.reportService.exportSalesReport(format).subscribe({
-      next: (blob) => {
-        const fileName = `sales-report.${format === 'excel' ? 'xlsx' : 'pdf'}`;
-        const link = document.createElement('a');
-        link.href = window.URL.createObjectURL(blob);
-        link.download = fileName;
-        link.click();
-        this.exporting = false;
-      },
-      error: () => {
-        this.error = 'Export failed.';
-        this.exporting = false;
-      }
+    if (format === 'excel') {
+      this.exportToExcel();
+    } else {
+      this.exportToPDF();
+    }
+    this.exporting = false;
+  }
+
+  exportToExcel() {
+    const worksheet = XLSX.utils.json_to_sheet(
+      this.sales.map(s => ({
+        'Order #': s.orderId,
+        'Customer': s.customerName,
+        'Total': s.totalAmount,
+        'Date': s.orderDate,
+        'Status': s.status
+      }))
+    );
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'SalesReport');
+    XLSX.writeFile(workbook, 'sales-report.xlsx');
+  }
+
+  exportToPDF() {
+    const doc = new jsPDF();
+    doc.text('Sales Report', 14, 16);
+    (doc as any).autoTable({
+      startY: 22,
+      head: [['Order #', 'Customer', 'Total', 'Date', 'Status']],
+      body: this.sales.map(s => [
+        s.orderId,
+        s.customerName,
+        s.totalAmount,
+        new Date(s.orderDate).toLocaleDateString(),
+        s.status
+      ]),
+      theme: 'grid',
+      styles: { fontSize: 10 }
     });
+    doc.save('sales-report.pdf');
   }
 }

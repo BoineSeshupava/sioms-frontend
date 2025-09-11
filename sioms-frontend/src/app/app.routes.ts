@@ -28,7 +28,7 @@ export const routes: Routes = [
     data: { roles: ['Admin'] },
   },
   {
-    path: 'add-warehouse',
+    path: 'admin/add-warehouse',
     loadComponent: () =>
       import('./modules/admin/add-warehouse/add-warehouse.component').then(
         (m) => m.AddWarehouseComponent
@@ -37,7 +37,7 @@ export const routes: Routes = [
     data: { roles: ['Admin'] },
   },
   {
-    path: 'edit-warehouse/:id',
+    path: 'admin/edit-warehouse/:id',
     loadComponent: () =>
       import('./modules/admin/edit-warehouse/edit-warehouse.component').then(
         (m) => m.EditWarehouseComponent
@@ -55,7 +55,7 @@ export const routes: Routes = [
     data: { roles: ['Admin'] },
   },
   {
-    path: 'add-vendor',
+    path: 'admin/add-vendor',
     loadComponent: () =>
       import('./modules/admin/add-vendor/add-vendor.component').then(
         (m) => m.AddVendorComponent
@@ -64,10 +64,19 @@ export const routes: Routes = [
     data: { roles: ['Admin'] },
   },
   {
-    path: 'edit-vendor/:id',
+    path: 'admin/edit-vendor/:id',
     loadComponent: () =>
       import('./modules/admin/edit-vendor/edit-vendor.component').then(
         (m) => m.EditVendorComponent
+      ),
+    canActivate: [AuthGuard],
+    data: { roles: ['Admin'] },
+  },
+  {
+    path: 'reports/sales',
+    loadComponent: () =>
+      import('./modules/dashboard/sales-report/sales-report.component').then(
+        (m) => m.SalesReportComponent
       ),
     canActivate: [AuthGuard],
     data: { roles: ['Admin'] },
