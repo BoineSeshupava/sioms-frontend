@@ -37,6 +37,9 @@ export class OrderService {
   }
 
   updateOrderStatus(id: string, status: string): Observable<void> {
-    return this.http.put<void>(`${this.apiUrl}/${id}/status`, status);
+    return this.http.put<void>(`${this.apiUrl}/${id}/status`, JSON.stringify(status),
+    {
+      headers: { 'Content-Type': 'application/json' }
+    });
   }
 }

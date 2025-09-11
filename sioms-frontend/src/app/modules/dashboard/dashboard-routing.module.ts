@@ -7,11 +7,32 @@ import { OrdersComponent } from './orders/orders.component';
 import { Routes } from '@angular/router';
 import { MyCartComponent } from '../customer/my-cart/my-cart.component';
 import { ProductListComponent } from '../products/product-list/product-list.component';
+import { StockAlertsComponent } from './stock-alerts/stock-alerts.component';
+import { InventoryReportComponent } from './inventory-report/inventory-report.component';
+import { SalesReportComponent } from './sales-report/sales-report.component';
 
 export default [
   {
     path: 'admin-home',
     component: AdminHomeComponent,
+    canActivate: [AuthGuard],
+    data: { roles: ['admin'] }
+  },
+  {
+    path: 'inventory-report',
+    component: InventoryReportComponent,
+    canActivate: [AuthGuard],
+    data: { roles: ['admin'] }
+  },
+  {
+    path: 'sales-report',
+    component: SalesReportComponent,
+    canActivate: [AuthGuard],
+    data: { roles: ['admin'] }
+  },
+  {
+    path: 'stock-alerts',
+    component: StockAlertsComponent,
     canActivate: [AuthGuard],
     data: { roles: ['admin'] }
   },

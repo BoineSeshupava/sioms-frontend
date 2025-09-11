@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { NgFor } from '@angular/common';
+import { CommonModule, NgFor } from '@angular/common';
 import { NgChartsModule } from 'ng2-charts';
 import { AdminService } from '../../../core/services/admin.service';
 import { Router } from '@angular/router';
+import { StockAlertsComponent } from "../stock-alerts/stock-alerts.component";
 
 @Component({
   selector: 'app-admin-home',
   standalone: true,
-  imports: [NgFor, NgChartsModule],
+  imports: [CommonModule, NgChartsModule, StockAlertsComponent],
   templateUrl: './admin-home.component.html',
   styleUrls: ['./admin-home.component.scss']
 })
