@@ -28,6 +28,6 @@ jobs:
           ###### Repository/Build Configurations - These values can be configured to match your app requirements. ######
           # For more information regarding Static Web App configuration consult: https://aka.ms/swaconfig
           # For more information regarding the action visit: https://github.com/Azure/static-web-apps-deploy
-          app_location: "/" # App source code path
+          app_location: "/sioms-frontend" # App source code path
           api_location: "" # Api source code path - optional
           ###### End of Repository/Build Configurations ######
