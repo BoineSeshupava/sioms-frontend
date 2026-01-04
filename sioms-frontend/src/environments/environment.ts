@@ -1,5 +1,5 @@
 export const environment = {
   production: false,
-  apiBaseUrl: 'https://localhost:5001/api'
+  apiBaseUrl: 'https://sioms-app.calmmeadow-81646cae.centralindia.azurecontainerapps.io'
 };
 []
